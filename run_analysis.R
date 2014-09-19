@@ -45,19 +45,19 @@ totalData$activityName <- factor(totalData$activityID,
                                 labels=actlabels$activityType)
 
 #Write combined data to disk
-write.table(totalData, "totalData.txt") # write out the 1st dataset
+write.table(totalData, "totalData.txt")
 
 #Calculate means by activity, subject
 totalMeans <- aggregate(totalData, by=list(activity=totalData$activityID,
                                 name=totalData$activityName
                                 subject=totalData$subjectID,
                                 )
-                        , mean)
+                        ,mean)
 
 
 #Remove redundant columns 
 totalMeans <- totalMeans[,!(names(totalMeans) %in% c("activityID",
-                                        "subjectID", "activityName"))]
+                                "subjectID", "activityName"))]
 
 #write file meansData.txt
 write.table(totalMeans, "meansData.txt")
