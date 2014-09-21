@@ -3,7 +3,8 @@
 #Check whether the files are in the current directory before running the script
 
 #Check installed packages
-require("dplyr")
+this.dir <- dirname(parent.frame(2)$ofile) 
+setwd(this.dir) 
 
 #get the labels
 actlabels <- read.table("./activity_labels.txt")
@@ -49,8 +50,8 @@ write.table(totalData, "totalData.txt")
 
 #Calculate means by activity, subject
 totalMeans <- aggregate(totalData, by=list(activity=totalData$activityID,
-                                name=totalData$activityName
-                                subject=totalData$subjectID,
+                                name=totalData$activityName,
+                                subject=totalData$subjectID
                                 )
                         ,mean)
 
@@ -60,4 +61,4 @@ totalMeans <- totalMeans[,!(names(totalMeans) %in% c("activityID",
                                 "subjectID", "activityName"))]
 
 #write file meansData.txt
-write.table(totalMeans, "meansData.txt")
+write.table(totalMeans, "meansData.txt",row.name=FALSE)
